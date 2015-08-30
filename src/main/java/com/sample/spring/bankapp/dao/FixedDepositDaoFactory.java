@@ -12,7 +12,7 @@ public class FixedDepositDaoFactory {
 		if("jdbc".equalsIgnoreCase(daoType)) {
 			System.out.println("Creating FixedDepositDao");
 			if(fixedDepositDao == null) {
-				fixedDepositDao = new FixedDepositDao();
+				fixedDepositDao = new FixedDepositDaoImpl();
 			}
 		}
 		return fixedDepositDao;

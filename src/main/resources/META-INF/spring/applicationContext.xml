@@ -4,11 +4,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="controller" class="com.sample.spring.bankapp.FixedDepositController">
+	<bean id="controller" class="com.sample.spring.bankapp.controller.FixedDepositController">
 		<property name="fixedDepositService" ref="service" />
 	</bean>
-	<bean id="service" class="com.sample.spring.bankapp.FixedDepositService">
+	<bean id="service" class="com.sample.spring.bankapp.service.FixedDepositService">
 		<property name="fixedDepositDao" ref="dao" />
 	</bean>
-	<bean id="dao" class="com.sample.spring.bankapp.FixedDepositDao" />
+	<bean id="dao" class="com.sample.spring.bankapp.dao.FixedDepositDao" />
 </beans>

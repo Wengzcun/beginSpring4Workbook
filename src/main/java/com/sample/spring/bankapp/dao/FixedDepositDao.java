@@ -1,9 +1,11 @@
-package com.sample.spring.bankapp;
+package com.sample.spring.bankapp.dao;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+
+import com.sample.spring.bankapp.domain.FixedDepositDetails;
 
 @SuppressWarnings("unused")
 public class FixedDepositDao {

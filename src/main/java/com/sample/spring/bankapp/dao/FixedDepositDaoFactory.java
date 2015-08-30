@@ -1,4 +1,5 @@
-package com.sample.spring.bankapp;
+package com.sample.spring.bankapp.dao;
+
 
 public class FixedDepositDaoFactory {
 

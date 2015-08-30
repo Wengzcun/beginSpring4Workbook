@@ -1,6 +1,9 @@
-package com.sample.spring.bankapp;
+package com.sample.spring.bankapp.controller;
 
 import org.apache.log4j.Logger;
+
+import com.sample.spring.bankapp.domain.FixedDepositDetails;
+import com.sample.spring.bankapp.service.FixedDepositService;
 
 public class FixedDepositController {
 	private static Logger logger = Logger.getLogger(FixedDepositController.class);

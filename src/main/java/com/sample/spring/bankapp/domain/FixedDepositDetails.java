@@ -1,4 +1,4 @@
-package com.sample.spring.bankapp;
+package com.sample.spring.bankapp.domain;
 
 public class FixedDepositDetails {
 	private long id;

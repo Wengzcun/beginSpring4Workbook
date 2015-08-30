@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.sample.spring.bankapp.controller.FixedDepositController;
+
 public class BankApp {
 	private static Logger logger = Logger.getLogger(BankApp.class);
 	

@@ -10,5 +10,16 @@
 	<bean id="service" class="com.sample.spring.bankapp.service.FixedDepositServiceImpl">
 		<property name="fixedDepositDao" ref="dao" />
 	</bean>
-	<bean id="dao" class="com.sample.spring.bankapp.dao.FixedDepositDaoImpl" />
+	<!--  Static Factory Method -->
+	<!--  
+	<bean id="dao" class="com.sample.spring.bankapp.dao.FixedDepositDaoFactory" factory-method="getFixedDepositDao" >
+		<constructor-arg index="0" value="jdbc" />
+	</bean>
+	-->
+	<!-- Instance Factory Method -->
+	<bean id="daoFactory" class="com.sample.spring.bankapp.dao.FixedDepositDaoFactory" />
+	<bean id="dao" factory-bean="daoFactory" factory-method="getFixedDepositDao">
+		<constructor-arg index="0" value="jdbc" />
+	</bean>
+	
 </beans>

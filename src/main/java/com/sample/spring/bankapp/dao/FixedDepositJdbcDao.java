@@ -8,16 +8,16 @@ import org.apache.log4j.Logger;
 import com.sample.spring.bankapp.domain.FixedDepositDetails;
 
 @SuppressWarnings("unused")
-public class FixedDepositDaoImpl implements FixedDepositDao {
-	private static Logger logger = Logger.getLogger(FixedDepositDaoImpl.class);
+public class FixedDepositJdbcDao implements FixedDepositDao {
+	private static Logger logger = Logger.getLogger(FixedDepositJdbcDao.class);
 	private String url;
 	private String driverClass;
 	private String username;
 	private String password;
-
+	
 	private Map<Long, FixedDepositDetails> fixedDeposits = new HashMap<Long, FixedDepositDetails>();
 
-	public FixedDepositDaoImpl() {
+	public FixedDepositJdbcDao() {
 		logger.info("initializing");
 	}
 	

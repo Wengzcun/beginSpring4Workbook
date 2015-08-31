@@ -6,13 +6,20 @@ public class FixedDepositDaoFactory {
 	public FixedDepositDaoFactory() {
 	}
 	
-	public static FixedDepositDao getFixedDepositDao(String daoType) {
+	/* static factory method */
+	/* public static FixedDepositDao getFixedDepositDao(String daoType) { */
+	public FixedDepositDao getFixedDepositDao(String daoType) {
 		FixedDepositDao fixedDepositDao = null;
 		
 		if("jdbc".equalsIgnoreCase(daoType)) {
 			System.out.println("Creating FixedDepositDao");
 			if(fixedDepositDao == null) {
-				fixedDepositDao = new FixedDepositDaoImpl();
+				fixedDepositDao = new FixedDepositJdbcDao();
+			}
+		} else if("hibernate".equalsIgnoreCase(daoType)) {
+			System.out.println("Creating FixedDepositDao");
+			if(fixedDepositDao == null) {
+				fixedDepositDao = new FixedDepositHibernateDao();
 			}
 		}
 		return fixedDepositDao;

@@ -20,6 +20,8 @@
 	<bean id="daoFactory" class="com.sample.spring.bankapp.dao.FixedDepositDaoFactory" />
 	<bean id="dao" factory-bean="daoFactory" factory-method="getFixedDepositDao">
 		<constructor-arg index="0" value="jdbc" />
+		<property name="databaseInfo" ref="databaseInfo" />
 	</bean>
+	<bean id="databaseInfo" class="com.sample.spring.bankapp.dao.DatabaseInfo" />
 	
 </beans>

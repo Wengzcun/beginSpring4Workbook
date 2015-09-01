@@ -26,4 +26,6 @@
 	<!-- Different beans of same class. -->
 	<bean id="oneDao" class="com.sample.spring.bankapp.dao.FixedDepositDaoImpl" />
 	<bean id="anotherDao" class="com.sample.spring.bankapp.dao.FixedDepositDaoImpl" />
+	<!-- Prototype bean -->
+	<bean id="details" class="com.sample.spring.bankapp.domain.FixedDepositDetails" scope="prototype" />
 </beans>

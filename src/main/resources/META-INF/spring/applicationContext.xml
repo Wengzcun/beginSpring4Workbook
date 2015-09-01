@@ -23,5 +23,7 @@
 		<property name="databaseInfo" ref="databaseInfo" />
 	</bean>
 	<bean id="databaseInfo" class="com.sample.spring.bankapp.dao.DatabaseInfo" />
-	
+	<!-- Different beans of same class. -->
+	<bean id="oneDao" class="com.sample.spring.bankapp.dao.FixedDepositDaoImpl" />
+	<bean id="anotherDao" class="com.sample.spring.bankapp.dao.FixedDepositDaoImpl" />
 </beans>

@@ -14,6 +14,9 @@ public class FixedDepositControllerImpl implements FixedDepositController {
 		logger.info("initializing");
 	}
 	
+	public FixedDepositService getFixedDepositService() {
+		return this.fixedDepositService;
+	}
 	public void setFixedDepositService(FixedDepositService fixedDepositService) {
 		logger.info("Setting fixedDepositService property");
 		this.fixedDepositService = fixedDepositService;

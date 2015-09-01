@@ -12,6 +12,9 @@ public class FixedDepositServiceImpl implements FixedDepositService{
 	public FixedDepositServiceImpl() {
 		logger.info("initializing");
 	}
+	public FixedDepositDao getFixedDepositDao() {
+		return this.fixedDepositDao;
+	}
 
 	public void setFixedDepositDao(FixedDepositDao fixedDepositDao) {
 		logger.info("Setting fixedDepositDao property");

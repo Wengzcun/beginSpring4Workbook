@@ -26,6 +26,10 @@ public class FixedDepositControllerImpl implements FixedDepositController {
 		return fixedDepositService.createFixedDeposit(new FixedDepositDetails(1, 10000, 365, "user@gmail.com"));
 	}
 	
+	public boolean submit(FixedDepositDetails fixedDepositDetails) {
+		return fixedDepositService.createFixedDeposit(fixedDepositDetails);
+	}
+	
 	public FixedDepositDetails get() {
 		return fixedDepositService.getFixedDepositDetails(1L);
 	}

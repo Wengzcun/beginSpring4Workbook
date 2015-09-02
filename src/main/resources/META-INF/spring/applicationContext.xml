@@ -4,11 +4,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="controller" class="com.sample.spring.bankapp.controller.FixedDepositControllerImpl">
-		<property name="fixedDepositService" ref="service" />
+	<bean id="fixedDepositController" class="com.sample.spring.bankapp.controller.FixedDepositControllerImpl">
+		<property name="fixedDepositService" ref="fixedDepositService" />
 	</bean>
-	<bean id="service" class="com.sample.spring.bankapp.service.FixedDepositServiceImpl">
-		<property name="fixedDepositDao" ref="dao" />
+	<bean id="fixedDepositService" class="com.sample.spring.bankapp.service.FixedDepositServiceImpl">
+		<property name="fixedDepositDao" ref="fixedDepositDao" />
 	</bean>
 	<!--  Static Factory Method -->
 	<!--  
@@ -17,15 +17,32 @@
 	</bean>
 	-->
 	<!-- Instance Factory Method -->
-	<bean id="daoFactory" class="com.sample.spring.bankapp.dao.FixedDepositDaoFactory" />
-	<bean id="dao" factory-bean="daoFactory" factory-method="getFixedDepositDao">
+	<bean id="fixedDepositDaoFactory" class="com.sample.spring.bankapp.dao.FixedDepositDaoFactory" />
+	<bean id="fixedDepositDao" factory-bean="fixedDepositDaoFactory" factory-method="getFixedDepositDao">
 		<constructor-arg index="0" value="jdbc" />
 		<property name="databaseInfo" ref="databaseInfo" />
-	</bean>
-	<bean id="databaseInfo" class="com.sample.spring.bankapp.dao.DatabaseInfo" />
+	</bean>	
+	<bean id="databaseInfo" class="com.sample.spring.bankapp.utils.DatabaseInfo" />
+	
 	<!-- Different beans of same class. -->
-	<bean id="oneDao" class="com.sample.spring.bankapp.dao.FixedDepositDaoImpl" />
-	<bean id="anotherDao" class="com.sample.spring.bankapp.dao.FixedDepositDaoImpl" />
+	<bean id="oneDao" parent="daoTemplate" class="com.sample.spring.bankapp.dao.FixedDepositDaoImpl" />
+	<bean id="anotherDao" parent="daoTemplate" class="com.sample.spring.bankapp.dao.FixedDepositDaoImpl" />
 	<!-- Prototype bean -->
 	<bean id="details" class="com.sample.spring.bankapp.domain.FixedDepositDetails" scope="prototype" />
+	
+	<!-- Parent bean (abstract) -->
+	<bean id="databaseOperations" class="com.sample.spring.bankapp.utils.DatabaseOperations" />
+	<bean id="daoTemplate" abstract="true">
+		<property name="databaseOperations" ref="databaseOperations" />
+	</bean>
+	
+	<bean id="personalBankingController" class="com.sample.spring.bankapp.controller.PersonalBankingControllerImpl">
+		<property name="personalBankingService" ref="personalBankingService" />
+	</bean>
+	<bean id="personalBankingService" class="com.sample.spring.bankapp.service.PersonalBankingServiceImpl">
+		<property name="personalBankingDao" ref="personalBankingDao" />
+	</bean>
+	<bean id="personalBankingDao" parent="daoTemplate" class="com.sample.spring.bankapp.dao.PersonalBankingDaoImpl">
+	</bean>
+	
 </beans>

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.sample.spring.bankapp.domain.FixedDepositDetails;
+import com.sample.spring.bankapp.utils.DatabaseOperations;
 
 @SuppressWarnings("unused")
 public class FixedDepositDaoImpl implements FixedDepositDao {
@@ -16,6 +17,7 @@ public class FixedDepositDaoImpl implements FixedDepositDao {
 	private String password;
 
 	private Map<Long, FixedDepositDetails> fixedDeposits = new HashMap<Long, FixedDepositDetails>();
+	private DatabaseOperations databaseOperations;
 
 	public FixedDepositDaoImpl() {
 		logger.info("initializing");
@@ -44,5 +46,11 @@ public class FixedDepositDaoImpl implements FixedDepositDao {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}	
+	}
+
+	public void setDatabaseOperations(DatabaseOperations databaseOperations) {
+		this.databaseOperations = databaseOperations;
+	}
+	
+	
 }

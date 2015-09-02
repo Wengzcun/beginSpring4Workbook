@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.sample.spring.bankapp.domain.FixedDepositDetails;
+import com.sample.spring.bankapp.utils.DatabaseInfo;
 
 @SuppressWarnings("unused")
 public class FixedDepositJdbcDao implements FixedDepositDao {

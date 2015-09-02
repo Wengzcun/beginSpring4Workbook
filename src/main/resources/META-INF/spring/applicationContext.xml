@@ -2,47 +2,50 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Factory Method Inheritance (abstract) -->
+	<bean id="controllerTemplate" abstract="true" factory-method="getController" factory-bean="controllerFactory" />
+	<bean id="controllerFactory" class="com.sample.spring.bankapp.controller.ControllerFactory" />
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="fixedDepositController" class="com.sample.spring.bankapp.controller.FixedDepositControllerImpl">
-		<property name="fixedDepositService" ref="fixedDepositService" />
+	<!-- Property Inheritance (non-abstract) -->
+	<bean id="serviceTemplate" class="com.sample.spring.bankapp.base.ServiceTemplate" >
+		<property name="jmsMessageSender" ref="jmsMessageSender"/>
+		<property name="emailMessageSender" ref="emailMessageSender"/>
+		<property name="webServiceInvoker" ref="webServiceInvoker"/>
 	</bean>
-	<bean id="fixedDepositService" class="com.sample.spring.bankapp.service.FixedDepositServiceImpl">
-		<property name="fixedDepositDao" ref="fixedDepositDao" />
-	</bean>
-	<!--  Static Factory Method -->
-	<!--  
-	<bean id="dao" class="com.sample.spring.bankapp.dao.FixedDepositDaoFactory" factory-method="getFixedDepositDao" >
-		<constructor-arg index="0" value="jdbc" />
-	</bean>
-	-->
-	<!-- Instance Factory Method -->
-	<bean id="fixedDepositDaoFactory" class="com.sample.spring.bankapp.dao.FixedDepositDaoFactory" />
-	<bean id="fixedDepositDao" factory-bean="fixedDepositDaoFactory" factory-method="getFixedDepositDao">
-		<constructor-arg index="0" value="jdbc" />
-		<property name="databaseInfo" ref="databaseInfo" />
-	</bean>	
-	<bean id="databaseInfo" class="com.sample.spring.bankapp.utils.DatabaseInfo" />
+	<bean id="jmsMessageSender" class="com.sample.spring.bankapp.base.JmsMessageSender" />
+	<bean id="emailMessageSender" class="com.sample.spring.bankapp.base.EmailMessageSender" />
+	<bean id="webServiceInvoker" class="com.sample.spring.bankapp.base.WebServiceInvoker" />
 	
-	<!-- Different beans of same class. -->
-	<bean id="oneDao" parent="daoTemplate" class="com.sample.spring.bankapp.dao.FixedDepositDaoImpl" />
-	<bean id="anotherDao" parent="daoTemplate" class="com.sample.spring.bankapp.dao.FixedDepositDaoImpl" />
-	<!-- Prototype bean -->
-	<bean id="details" class="com.sample.spring.bankapp.domain.FixedDepositDetails" scope="prototype" />
-	
-	<!-- Parent bean (abstract) -->
-	<bean id="databaseOperations" class="com.sample.spring.bankapp.utils.DatabaseOperations" />
+	<!-- Property Inheritance (abstract) -->
 	<bean id="daoTemplate" abstract="true">
 		<property name="databaseOperations" ref="databaseOperations" />
 	</bean>
+	<bean id="databaseOperations" class="com.sample.spring.bankapp.utils.DatabaseOperations" />
 	
-	<bean id="personalBankingController" class="com.sample.spring.bankapp.controller.PersonalBankingControllerImpl">
+	<!-- Fixed Deposit -->
+	<bean id="fixedDepositController" parent="controllerTemplate">
+		<constructor-arg index="0" value="fixedDepositController" />
+		<property name="fixedDepositService" ref="fixedDepositService" />
+	</bean>
+	<bean id="fixedDepositService" parent="serviceTemplate" class="com.sample.spring.bankapp.service.FixedDepositServiceImpl">
+		<property name="fixedDepositDao" ref="fixedDepositDao" />
+	</bean>
+	<bean id="fixedDepositDao" parent="daoTemplate" class="com.sample.spring.bankapp.dao.FixedDepositDaoImpl" />
+	<bean id="fixedDepositDetails" class="com.sample.spring.bankapp.domain.FixedDepositDetails" scope="prototype" />
+	
+	<!-- Personal Banking -->
+	<bean id="personalBankingController" parent="controllerTemplate">
+		<constructor-arg index="0" value="personalBankingController" />
 		<property name="personalBankingService" ref="personalBankingService" />
 	</bean>
-	<bean id="personalBankingService" class="com.sample.spring.bankapp.service.PersonalBankingServiceImpl">
+	<bean id="personalBankingService" parent="serviceTemplate"  class="com.sample.spring.bankapp.service.PersonalBankingServiceImpl">
 		<property name="personalBankingDao" ref="personalBankingDao" />
 	</bean>
-	<bean id="personalBankingDao" parent="daoTemplate" class="com.sample.spring.bankapp.dao.PersonalBankingDaoImpl">
-	</bean>
+	<bean id="personalBankingDao" parent="daoTemplate" class="com.sample.spring.bankapp.dao.PersonalBankingDaoImpl" />
 	
+	<!-- User Request -->
+	<bean id="userRequestController" class="com.sample.spring.bankapp.controller.UserRequestControllerImpl">
+		<property name="serviceTemplate" ref="serviceTemplate" />
+	</bean>
 </beans>
